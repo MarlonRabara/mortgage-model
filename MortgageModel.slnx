@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Mortgage.Model/Mortgage.Model.csproj" />
+    <Project Path="src/Mortgage.Model.Translators.MISMO/Mortgage.Model.Translators.MISMO.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Mortgage.Model.Translators.MISMO.Tests/Mortgage.Model.Translators.MISMO.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+</Solution>

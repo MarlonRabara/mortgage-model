@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Mortgage.Model.Translators.MISMO</RootNamespace>
+    <AssemblyName>Mortgage.Model.Translators.MISMO</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mortgage.Model\Mortgage.Model.csproj" />
+  </ItemGroup>
+</Project>

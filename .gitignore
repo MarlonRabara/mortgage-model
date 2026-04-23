@@ -1,0 +1,59 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio / Rider / VS Code
+.vs/
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.cache
+*.tmp
+
+# Test and coverage outputs
+[Tt]est[Rr]esult*/
+**/TestResults/
+*.trx
+*.coverage
+*.coveragexml
+coverage/
+
+# ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+packages/
+!**/packages/build/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# .NET generated files
+Generated Files/
+*.g.cs
+*.g.i.cs
+
+# Publish / deployment
+publish/
+out/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local env files
+.env
+.env.*
+
+# Ignore generated xUnit/Reqnroll artifacts under obj (already covered by obj/)
+# keep placeholder directories tracked when needed
+!.gitkeep
