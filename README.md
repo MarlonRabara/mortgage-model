@@ -1,6 +1,6 @@
 # Mortgage Model + MISMO Translators
 
-`mortgage-model-mismo` is a .NET 10 sample/reference implementation of a clean mortgage domain model with a dedicated MISMO translation layer.
+`mortgage-model` is a .NET 10 sample/reference implementation of a clean mortgage domain model with a dedicated MISMO translation layer.
 
 The repository is structured so business-domain objects stay intuitive while MISMO XML serialization/deserialization concerns remain isolated in translator code.
 
