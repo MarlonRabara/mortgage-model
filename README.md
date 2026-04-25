@@ -38,6 +38,56 @@ dotnet build MortgageModel.slnx
 dotnet test .\tests\Mortgage.Model.Translators.MISMO.Tests\Mortgage.Model.Translators.MISMO.Tests.csproj
 ```
 
+## C# examples: serialize and deserialize MISMO XML
+
+### Serialize a `MortgageFile` to MISMO XML
+
+```csharp
+using Mortgage.Model.Translators.MISMO;
+using Mortgage.Model.Translators.MISMO.Mapping;
+
+var translator = new MortgageFileMismoTranslator();
+var mortgageFile = ExampleFactory.CreatePopulatedMortgageFile();
+
+string xml = translator.Serialize(
+    mortgageFile,
+    new MismoTranslationOptions
+    {
+        MismoVersion = "3.6.2",
+        IndentXml = true
+    });
+
+File.WriteAllText("loan.mismo.xml", xml);
+```
+
+### Deserialize MISMO XML to a `MortgageFile`
+
+```csharp
+using Mortgage.Model.Translators.MISMO;
+
+var translator = new MortgageFileMismoTranslator();
+string xml = File.ReadAllText("loan.mismo.xml");
+
+var mortgageFile = translator.Deserialize(xml);
+
+Console.WriteLine(mortgageFile.LoanApplication.Metadata.LoanIdentifier);
+Console.WriteLine(mortgageFile.LoanApplication.PrimaryBorrower.LastName);
+```
+
+### Round-trip (deserialize, update, serialize)
+
+```csharp
+using Mortgage.Model.Translators.MISMO;
+
+var translator = new MortgageFileMismoTranslator();
+var mortgageFile = translator.Deserialize(File.ReadAllText("loan.mismo.xml"));
+
+mortgageFile.LoanApplication.Terms.NoteRatePercent = 6.0m;
+
+var updatedXml = translator.Serialize(mortgageFile);
+File.WriteAllText("loan.updated.mismo.xml", updatedXml);
+```
+
 ## MISMO schema note
 
 Official MISMO schemas and related artifacts are distributed under MISMO license terms and should be obtained directly from MISMO.

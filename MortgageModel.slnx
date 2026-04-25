@@ -1,7 +1,13 @@
 <Solution>
+  <Folder Name="/Solution Items/Examples/">
+    <File Path="MISMO XML/Scenario 1 - Fannie Mae Conventional Fixed-Rate Purchase – Whole Loan.xml" />
+    <File Path="MISMO XML/Scenario 2 - Fannie Mae Conventional ARM Refinance – Whole Loan.xml" />
+    <File Path="MISMO XML/Scenario 3 - Fannie Mae Conventional Fixed-Rate Condo Purchase - Whole Loan Delivery.xml" />
+    <File Path="MISMO XML/Scenario 4 - Fannie Mae Purchase 30 Year Conventional Mortgage Transaction Updated for UAD 3.6 Narrative - Whole Loan.xml" />
+  </Folder>
   <Folder Name="/src/">
-    <Project Path="src/Mortgage.Model/Mortgage.Model.csproj" />
     <Project Path="src/Mortgage.Model.Translators.MISMO/Mortgage.Model.Translators.MISMO.csproj" />
+    <Project Path="src/Mortgage.Model/Mortgage.Model.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Mortgage.Model.Translators.MISMO.Tests/Mortgage.Model.Translators.MISMO.Tests.csproj" />
