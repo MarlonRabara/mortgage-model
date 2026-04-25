@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/Solution Items/Examples/">
+    <File Path="MISMO XML/sample-loan-application.xml" />
     <File Path="MISMO XML/Scenario 1 - Fannie Mae Conventional Fixed-Rate Purchase – Whole Loan.xml" />
     <File Path="MISMO XML/Scenario 2 - Fannie Mae Conventional ARM Refinance – Whole Loan.xml" />
     <File Path="MISMO XML/Scenario 3 - Fannie Mae Conventional Fixed-Rate Condo Purchase - Whole Loan Delivery.xml" />
