@@ -15,6 +15,12 @@ namespace Mortgage.Model.Translators.MISMO;
 /// </summary>
 public sealed class MortgageFileMismoTranslator
 {
+    /// <summary>
+    /// Serializes a mortgage file domain object into a MISMO XML payload.
+    /// </summary>
+    /// <param name="file">The mortgage file to serialize.</param>
+    /// <param name="options">Optional serialization settings.</param>
+    /// <returns>A MISMO XML string containing the mapped mortgage file data.</returns>
     public string Serialize(MortgageFile file, MismoTranslationOptions? options = null)
     {
         options ??= new MismoTranslationOptions();
@@ -42,6 +48,36 @@ public sealed class MortgageFileMismoTranslator
         return doc.ToString(options.IndentXml ? SaveOptions.None : SaveOptions.DisableFormatting);
     }
 
+    /// <summary>
+    /// Reads a MISMO XML file from disk and deserializes it into a loan application.
+    /// </summary>
+    /// <param name="mismoXmlFilePath">The path to the MISMO XML file.</param>
+    /// <returns>The deserialized loan application, or <see langword="null"/> when the file cannot be read or parsed.</returns>
+    public LoanApplication Deserialize(string mismoXmlFilePath)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(mismoXmlFilePath) || !File.Exists(mismoXmlFilePath))
+            {
+                return null!;
+            }
+
+            var xml = File.ReadAllText(mismoXmlFilePath);
+            return Deserialize(xml, options: null).LoanApplication;
+        }
+        catch
+        {
+            return null!;
+        }
+    }
+
+    /// <summary>
+    /// Deserializes a MISMO XML payload into a mortgage file domain object.
+    /// </summary>
+    /// <param name="xml">The MISMO XML payload to parse.</param>
+    /// <param name="options">Optional parsing settings.</param>
+    /// <returns>A mortgage file containing the mapped MISMO data.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when the XML does not contain a MISMO DEAL payload.</exception>
     public MortgageFile Deserialize(string xml, MismoTranslationOptions? options = null)
     {
         options ??= new MismoTranslationOptions();
@@ -136,6 +172,12 @@ public sealed class MortgageFileMismoTranslator
         return file;
     }
 
+    /// <summary>
+    /// Builds the MISMO LOANS container for the supplied loan application.
+    /// </summary>
+    /// <param name="ns">The MISMO XML namespace.</param>
+    /// <param name="loan">The loan application to map.</param>
+    /// <returns>The populated LOANS XML element.</returns>
     private static XElement BuildLoans(XNamespace ns, LoanApplication loan) =>
         new(ns + "LOANS",
             new XElement(ns + "LOAN",
@@ -154,6 +196,12 @@ public sealed class MortgageFileMismoTranslator
                     Maybe(ns + "EstimatedClosingCostsAmount", loan.TransactionDetail.EstimatedClosingCostsAmount),
                     Maybe(ns + "CashFromBorrowerAmount", loan.TransactionDetail.CashFromBorrowerAmount))));
 
+    /// <summary>
+    /// Builds the MISMO PARTIES container for borrowers associated with the loan application.
+    /// </summary>
+    /// <param name="ns">The MISMO XML namespace.</param>
+    /// <param name="loan">The loan application containing borrower data.</param>
+    /// <returns>The populated PARTIES XML element.</returns>
     private static XElement BuildParties(XNamespace ns, LoanApplication loan)
     {
         var borrowers = new List<Borrower> { loan.PrimaryBorrower };
@@ -200,6 +248,12 @@ public sealed class MortgageFileMismoTranslator
         }
     }
 
+    /// <summary>
+    /// Builds the MISMO ASSETS container for borrower asset records.
+    /// </summary>
+    /// <param name="ns">The MISMO XML namespace.</param>
+    /// <param name="loan">The loan application containing asset data.</param>
+    /// <returns>The populated ASSETS XML element.</returns>
     private static XElement BuildAssets(XNamespace ns, LoanApplication loan) =>
         new(ns + "ASSETS", loan.Assets.Select(a =>
             new XElement(ns + "ASSET",
@@ -209,6 +263,12 @@ public sealed class MortgageFileMismoTranslator
                 Maybe(ns + "CashOrMarketValueAmount", a.CashOrMarketValueAmount),
                 Maybe(ns + "AssetDescription", a.Description))));
 
+    /// <summary>
+    /// Builds the MISMO LIABILITIES container for borrower liability records.
+    /// </summary>
+    /// <param name="ns">The MISMO XML namespace.</param>
+    /// <param name="loan">The loan application containing liability data.</param>
+    /// <returns>The populated LIABILITIES XML element.</returns>
     private static XElement BuildLiabilities(XNamespace ns, LoanApplication loan) =>
         new(ns + "LIABILITIES", loan.Liabilities.Select(l =>
             new XElement(ns + "LIABILITY",
@@ -218,6 +278,12 @@ public sealed class MortgageFileMismoTranslator
                 Maybe(ns + "LiabilityUnpaidBalanceAmount", l.UnpaidBalanceAmount),
                 Maybe(ns + "LiabilityMonthlyPaymentAmount", l.MonthlyPaymentAmount))));
 
+    /// <summary>
+    /// Builds the MISMO COLLATERALS container for the subject property.
+    /// </summary>
+    /// <param name="ns">The MISMO XML namespace.</param>
+    /// <param name="loan">The loan application containing subject property data.</param>
+    /// <returns>The populated COLLATERALS XML element.</returns>
     private static XElement BuildCollaterals(XNamespace ns, LoanApplication loan) =>
         new(ns + "COLLATERALS",
             new XElement(ns + "COLLATERAL",
@@ -228,6 +294,12 @@ public sealed class MortgageFileMismoTranslator
                     Maybe(ns + "FinancedUnitCount", loan.SubjectProperty.FinancedUnitCount),
                     BuildAddress(ns, loan.SubjectProperty.Address))));
 
+    /// <summary>
+    /// Builds a MISMO ADDRESS element from a domain address.
+    /// </summary>
+    /// <param name="ns">The MISMO XML namespace.</param>
+    /// <param name="address">The address to map.</param>
+    /// <returns>The populated ADDRESS XML element.</returns>
     private static XElement BuildAddress(XNamespace ns, Address address) =>
         new(ns + "ADDRESS",
             Maybe(ns + "AddressLineText", address.Line1),
@@ -238,6 +310,13 @@ public sealed class MortgageFileMismoTranslator
             Maybe(ns + "PostalCode", address.PostalCode),
             Maybe(ns + "CountryCode", address.CountryCode));
 
+    /// <summary>
+    /// Deserializes a MISMO PARTY element into a borrower domain object.
+    /// </summary>
+    /// <param name="party">The PARTY element to parse.</param>
+    /// <param name="ns">The MISMO XML namespace.</param>
+    /// <param name="role">The MISMO borrower role value.</param>
+    /// <returns>The mapped borrower domain object.</returns>
     private static Borrower DeserializeBorrower(XElement party, XNamespace ns, string? role)
     {
         var individual = party.Element(ns + "INDIVIDUAL");
@@ -274,6 +353,12 @@ public sealed class MortgageFileMismoTranslator
         return borrower;
     }
 
+    /// <summary>
+    /// Deserializes a MISMO ADDRESS element into a domain address object.
+    /// </summary>
+    /// <param name="address">The ADDRESS element to parse.</param>
+    /// <param name="ns">The MISMO XML namespace.</param>
+    /// <returns>The mapped address, or an empty address when no element is supplied.</returns>
     private static Address DeserializeAddress(XElement? address, XNamespace ns)
     {
         if (address is null) return new Address();

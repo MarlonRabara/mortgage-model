@@ -9,6 +9,11 @@
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="..\..\MISMO XML\sample-loan-application.xml" Link="TestData\sample-loan-application.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\src\Mortgage.Model\Mortgage.Model.csproj" />
     <ProjectReference Include="..\..\src\Mortgage.Model.Translators.MISMO\Mortgage.Model.Translators.MISMO.csproj" />
   </ItemGroup>
@@ -31,5 +36,8 @@
       <Link>TestData\sample-loan-application.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TestData\" />
   </ItemGroup>
 </Project>

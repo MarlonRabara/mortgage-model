@@ -26,11 +26,11 @@ public sealed class ApplicationMetadata : DomainEntity
     /// </summary>
     public DateOnly? ApplicationReceivedDate { get; set; }
     /// <summary>
-    /// Gets or sets the channel in the shared mortgage metadata.
+    /// Gets or sets the origination channel, such as retail, broker, or correspondent.
     /// </summary>
     public string? Channel { get; set; }
     /// <summary>
-    /// Gets or sets the originating system in the shared mortgage metadata.
+    /// Gets or sets the system that originated or supplied the application data.
     /// </summary>
     public string? OriginatingSystem { get; set; }
     /// <summary>
@@ -49,19 +49,19 @@ public sealed class ApplicationMetadata : DomainEntity
 public sealed class IntegrationMetadata : DomainEntity
 {
     /// <summary>
-    /// Gets or sets the standard in the shared mortgage metadata.
+    /// Gets or sets the integration standard represented by this metadata.
     /// </summary>
     public string? Standard { get; set; } = "MISMO";
     /// <summary>
-    /// Gets or sets the version in the shared mortgage metadata.
+    /// Gets or sets the integration standard version.
     /// </summary>
     public string? Version { get; set; } = "3.6.2";
     /// <summary>
-    /// Gets or sets the dataset in the shared mortgage metadata.
+    /// Gets or sets the named dataset, profile, or implementation context for the exchange.
     /// </summary>
     public string? Dataset { get; set; }
     /// <summary>
-    /// Gets or sets the preserve unknown data in the shared mortgage metadata.
+    /// Gets or sets a value indicating whether unmapped source data should be preserved when possible.
     /// </summary>
     public bool PreserveUnknownData { get; set; } = true;
 }

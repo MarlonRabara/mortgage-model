@@ -13,6 +13,10 @@ namespace Mortgage.Model.Translators.MISMO.Mapping;
 /// </summary>
 public static class ExampleFactory
 {
+    /// <summary>
+    /// Creates a representative mortgage file populated with borrower, loan, collateral, asset, and liability data.
+    /// </summary>
+    /// <returns>A populated mortgage file suitable for translator examples and tests.</returns>
     public static MortgageFile CreatePopulatedMortgageFile()
     {
         return new MortgageFile

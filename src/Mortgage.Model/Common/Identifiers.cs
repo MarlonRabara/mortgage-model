@@ -10,11 +10,11 @@ public sealed class OrganizationReference : DomainEntity
     /// </summary>
     public string? Name { get; set; }
     /// <summary>
-    /// Gets or sets the nmls id in the shared mortgage metadata.
+    /// Gets or sets the Nationwide Multistate Licensing System identifier for the organization.
     /// </summary>
     public string? NmlsId { get; set; }
     /// <summary>
-    /// Gets or sets the tax id in the shared mortgage metadata.
+    /// Gets or sets the tax identifier for the organization.
     /// </summary>
     public string? TaxId { get; set; }
     /// <summary>
@@ -33,7 +33,7 @@ public sealed class DocumentReference : DomainEntity
     /// </summary>
     public string? Name { get; set; }
     /// <summary>
-    /// Gets or sets the uri in the shared mortgage metadata.
+    /// Gets or sets the URI or location where the document can be accessed.
     /// </summary>
     public string? Uri { get; set; }
     /// <summary>
@@ -41,7 +41,7 @@ public sealed class DocumentReference : DomainEntity
     /// </summary>
     public string? MimeType { get; set; }
     /// <summary>
-    /// Gets or sets the description in the shared mortgage metadata.
+    /// Gets or sets a free-form description of the referenced document.
     /// </summary>
     public string? Description { get; set; }
 }
@@ -52,19 +52,19 @@ public sealed class DocumentReference : DomainEntity
 public sealed class ValidationIssue : DomainEntity
 {
     /// <summary>
-    /// Gets or sets the code in the shared mortgage metadata.
+    /// Gets or sets the machine-readable validation or business-rule code.
     /// </summary>
     public string? Code { get; set; }
     /// <summary>
-    /// Gets or sets the severity in the shared mortgage metadata.
+    /// Gets or sets the validation severity, such as informational, warning, or error.
     /// </summary>
     public string? Severity { get; set; }
     /// <summary>
-    /// Gets or sets the message in the shared mortgage metadata.
+    /// Gets or sets the human-readable validation message.
     /// </summary>
     public string? Message { get; set; }
     /// <summary>
-    /// Gets or sets the path in the shared mortgage metadata.
+    /// Gets or sets the model or payload path associated with the validation issue.
     /// </summary>
     public string? Path { get; set; }
 }
